@@ -1,0 +1,24 @@
+  <p style="font-size:14px;color:rgba(0, 0, 0, 0.85);margin-bottom:16px;font-weight: 500;">
+      Select a project
+  </p>
+  <nz-card style="margin-top:16px;" [nzExtra]="extraTemplate">
+    <nz-form-item>
+      <nz-form-label [nzSm]="8" [nzXs]="24" nzRequired nzFor="title">Select an option</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Please select a valid option">
+        <button nz-button nz-dropdown [nzDropdownMenu]="menu4">
+          Select a project
+          <i nz-icon nzType="down"></i>
+        </button>
+        <nz-dropdown-menu #menu4="nzDropdownMenu">
+          <ul nz-menu>
+            <li nz-menu-item>menu1 1st menu item</li>
+            <li nz-menu-item>menu1 2nd menu item</li>
+            <li nz-menu-item>menu1 3rd menu item</li>
+          </ul>
+        </nz-dropdown-menu>
+      </nz-form-control>
+    </nz-form-item>
+  </nz-card>
+<ng-template #extraTemplate>
+  <a>More</a>
+</ng-template>

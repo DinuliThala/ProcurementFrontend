@@ -6,6 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
+  deadline = Date.now() + 1000 * 60 * 60 * 24 * 2 + 1000 * 30;
+
 
   constructor() { }
 

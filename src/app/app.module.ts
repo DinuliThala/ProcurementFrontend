@@ -31,6 +31,10 @@ import { NzUploadModule} from 'ng-zorro-antd/upload';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import {NzDatePickerModule} from 'ng-zorro-antd/date-picker';
 import {NzTableModule} from 'ng-zorro-antd/table';
+import { HomeComponent } from './pages/home/home.component';
+import { ProjectComponent } from './pages/project/project.component';
+import { NzCardModule } from 'ng-zorro-antd/card';
+import { NzStatisticModule } from 'ng-zorro-antd/statistic';
 
 registerLocaleData(en);
 
@@ -44,7 +48,9 @@ registerLocaleData(en);
     ViewBidsComponent,
     ViewPurchaseOrderComponent,
     ViewReqComponent,
-    AddPayComponent
+    AddPayComponent,
+    HomeComponent,
+    ProjectComponent
   ],
   imports: [
     BrowserModule,
@@ -65,7 +71,9 @@ registerLocaleData(en);
     NzUploadModule,
     NzDropDownModule,
     NzDatePickerModule,
-    NzTableModule
+    NzTableModule,
+    NzCardModule,
+    NzStatisticModule
   ],
   providers: [{ provide: NZ_I18N, useValue: en_US }],
   bootstrap: [AppComponent]

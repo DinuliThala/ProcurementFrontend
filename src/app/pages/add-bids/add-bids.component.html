@@ -1,36 +1,60 @@
+<h2>Add Bids</h2>
 <div>
   <form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()">
 
     <nz-form-item>
-      <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="title">Invoice Title</nz-form-label>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="name">Supplier Name</nz-form-label>
       <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="There is already a invoice with that name">
-        <input nz-input formControlName="title" id="title" />
+        <input nz-input formControlName="name" id="name" />
       </nz-form-control>
     </nz-form-item>
 
     <nz-form-item>
-      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="desc" nzRequired>Description</nz-form-label>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="email" nzRequired>Email</nz-form-label>
       <nz-form-control [nzSm]="14" [nzXs]="24">
-        <input nz-input type="desc" id="desc" formControlName="desc" (ngModelChange)="updateConfirmValidator()" />
+        <input nz-input type="email" id="email" formControlName="email" (ngModelChange)="updateConfirmValidator()" />
       </nz-form-control>
     </nz-form-item>
 
     <nz-form-item>
-      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="desc" nzRequired>Proof</nz-form-label>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="price" nzRequired>Quoted Price</nz-form-label>
       <nz-form-control [nzSm]="14" [nzXs]="24">
-        <nz-upload nzAction="https://www.mocky.io/v2/5cc8019d300000980a055e76" [nzFileList]="fileList" (nzChange)="handleChange($event)">
-          <button nz-button><i nz-icon nzType="upload"></i>Upload</button>
-        </nz-upload>
+        <input nz-input type="price" id="price" formControlName="price" (ngModelChange)="updateConfirmValidator()" />
       </nz-form-control>
     </nz-form-item>
 
-    <hr>
-    <h3>Payment</h3>
+
     <nz-form-item>
-      <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="title">Payee</nz-form-label>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="number" nzRequired>Contact Number</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24">
+        <input nz-input formControlName="number" id="number" />
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="address" nzRequired>Address</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24">
+        <input nz-input type="address" id="address" formControlName="address" (ngModelChange)="updateConfirmValidator()" />
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="cost" nzRequired>Transportation cost</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24">
+        <input nz-input type="cost" id="cost" formControlName="cost" (ngModelChange)="updateConfirmValidator()" />
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="desc" nzRequired>Due Date</nz-form-label>
+      <nz-date-picker [(ngModel)]="date" (ngModelChange)="onChange($event)"></nz-date-picker>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="rid">Requisition ID</nz-form-label>
       <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Please select an option">
         <a nz-dropdown [nzDropdownMenu]="menu">
-          Select Payee
+          Select ID
           <i nz-icon nzType="down"></i>
         </a>
         <nz-dropdown-menu #menu="nzDropdownMenu">
@@ -43,37 +67,18 @@
       </nz-form-control>
     </nz-form-item>
 
-    <nz-form-item>
-      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="remark" nzRequired>Remarks</nz-form-label>
-      <nz-form-control [nzSm]="14" [nzXs]="24">
-        <input nz-input formControlName="remark" id="remark" />
+    <div nz-row nzJustify="center">
+      <div nz-col nzFlex="3">
+        <nz-form-control [nzSpan]="14" [nzOffset]="6">
+          <button nz-button nzType="primary">Add Payment</button>
+        </nz-form-control>
+      </div>
+      <div nz-col nzFlex="2">
+        <button nz-button nzType="default" routerLink="/dashboard">
+          Go To Dashboard
+        </button>
+      </div>
+    </div>
 
-
-      </nz-form-control>
-    </nz-form-item>
-
-    <nz-form-item>
-      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="desc" nzRequired>Payment date</nz-form-label>
-      <nz-date-picker [(ngModel)]="date" (ngModelChange)="onChange($event)"></nz-date-picker>
-    </nz-form-item>
-
-    <nz-form-item>
-      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="desc" nzRequired>Paid on</nz-form-label>
-      <nz-date-picker [(ngModel)]="date" (ngModelChange)="onChange($event)"></nz-date-picker>
-    </nz-form-item>
-
-    <nz-form-item>
-      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="desc" nzRequired>Proof</nz-form-label>
-      <nz-form-control [nzSm]="14" [nzXs]="24">
-        <nz-upload nzAction="https://www.mocky.io/v2/5cc8019d300000980a055e76" [nzFileList]="fileList" (nzChange)="handleChange($event)">
-          <button nz-button><i nz-icon nzType="upload"></i>Upload</button>
-        </nz-upload>
-      </nz-form-control>
-    </nz-form-item>
-
-
-    <nz-form-control [nzSpan]="14" [nzOffset]="6">
-      <button nz-button nzType="primary">Add Payment</button>
-    </nz-form-control>
   </form>
 </div>

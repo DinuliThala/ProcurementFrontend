@@ -7,6 +7,7 @@ import {ViewBidsComponent} from './pages/view-bids/view-bids.component';
 import {ViewReqComponent} from './pages/view-req/view-req.component';
 import {AddBidsComponent} from './pages/add-bids/add-bids.component';
 import {AddPayComponent} from './pages/add-pay/add-pay.component';
+import {ProjectComponent} from './pages/project/project.component';
 
 const routes: Routes = [
   // { path: '', pathMatch: 'full', redirectTo: '/welcome' },
@@ -17,7 +18,8 @@ const routes: Routes = [
   {path: 'view-bids', component: ViewBidsComponent},
   {path: 'add-pay', component: AddPayComponent },
   {path: 'view-req', component: ViewReqComponent},
-  {path: 'add-bids', component: AddBidsComponent}
+  {path: 'add-bids', component: AddBidsComponent},
+  {path: 'project', component: ProjectComponent}
 // { path: 'welcome', loadChildren: () => import('./pages/welcome/welcome.module').then(m => m.WelcomeModule) }
 ];
 
