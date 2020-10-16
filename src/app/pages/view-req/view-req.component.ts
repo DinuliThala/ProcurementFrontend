@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {ColumnItem} from '../view-bids/ColumnItem';
-import {DataItem} from '../view-bids/DataItem';
+import {BackendService} from '../../services/backend.service';
+import {Requisiton} from '../../models/Requisiton';
 
 @Component({
   selector: 'app-view-req',
@@ -9,96 +9,61 @@ import {DataItem} from '../view-bids/DataItem';
 })
 export class ViewReqComponent implements OnInit {
 
-  constructor() { }
-  listOfColumns: ColumnItem[] = [
-    {
-      name: 'Name',
-      sortOrder: null,
-      sortFn: (a: DataItem, b: DataItem) => a.name.localeCompare(b.name),
-      listOfFilter: [
-        { text: 'Joe', value: 'Joe' },
-        { text: 'Jim', value: 'Jim' }
-      ],
-      filterFn: (list: string[], item: DataItem) => list.some(name => item.name.indexOf(name) !== -1)
-    },
-    {
-      name: 'Age',
-      sortOrder: null,
-      sortFn: (a: DataItem, b: DataItem) => a.age - b.age,
-      listOfFilter: [],
-      filterFn: null
-    },
-    {
-      name: 'Address',
-      sortFn: null,
-      sortOrder: null,
-      listOfFilter: [
-        { text: 'London', value: 'London' },
-        { text: 'Sidney', value: 'Sidney' }
-      ],
-      filterFn: (address: string, item: DataItem) => item.address.indexOf(address) !== -1
-    }
+  reqList: Requisiton[] = [];
+  reqListDisplay: Requisiton[] = [];
+  list: any;
+  items =  [];
+
+  header = [
+    ' ',
+    'Requisition ID',
+    'Site Manager',
+    'Status',
+    'Type',
+    'Due Date',
+    'Site',
+    'Store Location'
   ];
-  listOfData: DataItem[] = [
-    {
-      name: 'John Brown',
-      age: 32,
-      address: 'New York No. 1 Lake Park'
-    },
-    {
-      name: 'Jim Green',
-      age: 42,
-      address: 'London No. 1 Lake Park'
-    },
-    {
-      name: 'Joe Black',
-      age: 32,
-      address: 'Sidney No. 1 Lake Park'
-    },
-    {
-      name: 'Jim Red',
-      age: 32,
-      address: 'London No. 2 Lake Park'
-    }
-  ];
+
+   isVisible = false ;
+
+  constructor(
+    private backendService: BackendService
+  ) { }
 
   ngOnInit(): void {
+    this.getAllRequisitions();
   }
 
-  trackByName(_: number, item: ColumnItem): string {
-    return item.name;
-  }
+  // tslint:disable-next-line:typedef
+  getAllRequisitions() {
+    this.backendService.viewAllRequisition()
+      .toPromise().then((data: Requisiton[]) => {
+        const thisDup = this;
+        data.map( record =>  {
+          thisDup.reqList.push(record);
+        });
 
-  sortByAge(): void {
-    this.listOfColumns.forEach(item => {
-      if (item.name === 'Age') {
-        item.sortOrder = 'descend';
-      } else {
-        item.sortOrder = null;
-      }
+        this.reqListDisplay = thisDup.reqList;
+        for (this.list of this.reqList) {
+          this.items.push(
+            {requisition_id: this.list.requisition_id,
+              manager: this.list.manager,
+              status: this.list.status,
+              type: this.list.type,
+              due_date: this.list.due_date,
+              site: this.list.site,
+              store_location: this.list.store_location
+            }
+          );
+          console.log(this.list);
+        }
     });
   }
 
-  resetFilters(): void {
-    this.listOfColumns.forEach(item => {
-      if (item.name === 'Name') {
-        item.listOfFilter = [
-          { text: 'Joe', value: 'Joe' },
-          { text: 'Jim', value: 'Jim' }
-        ];
-      } else if (item.name === 'Address') {
-        item.listOfFilter = [
-          { text: 'London', value: 'London' },
-          { text: 'Sidney', value: 'Sidney' }
-        ];
-      }
-    });
-  }
 
-  resetSortAndFilters(): void {
-    this.listOfColumns.forEach(item => {
-      item.sortOrder = null;
-    });
-    this.resetFilters();
+  private showModal(): void {
+
+      this.isVisible = true;
   }
 }

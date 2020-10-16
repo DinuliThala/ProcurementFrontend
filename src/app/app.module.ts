@@ -35,6 +35,9 @@ import { HomeComponent } from './pages/home/home.component';
 import { ProjectComponent } from './pages/project/project.component';
 import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzStatisticModule } from 'ng-zorro-antd/statistic';
+import { TableComponent } from './utils/table/table.component';
+import {TableDataPipe} from './utils/table/TableData.pipe';
+import { SingeReqComponent } from './pages/singe-req/singe-req.component';
 
 registerLocaleData(en);
 
@@ -50,7 +53,10 @@ registerLocaleData(en);
     ViewReqComponent,
     AddPayComponent,
     HomeComponent,
-    ProjectComponent
+    ProjectComponent,
+    TableComponent,
+    TableDataPipe,
+    SingeReqComponent
   ],
   imports: [
     BrowserModule,
@@ -75,7 +81,7 @@ registerLocaleData(en);
     NzCardModule,
     NzStatisticModule
   ],
-  providers: [{ provide: NZ_I18N, useValue: en_US }],
+  providers: [TableDataPipe, { provide: NZ_I18N, useValue: en_US }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

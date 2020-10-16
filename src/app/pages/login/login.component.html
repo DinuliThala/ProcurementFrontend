@@ -3,7 +3,7 @@
   <nz-form-item>
     <nz-form-control nzErrorTip="Please input your username!">
       <nz-input-group nzPrefixIcon="user">
-        <input type="text" nz-input formControlName="userName" placeholder="Username" />
+        <input type="text" nz-input formControlName="email" placeholder="Username" />
       </nz-input-group>
     </nz-form-control>
   </nz-form-item>
@@ -24,6 +24,9 @@
       <a class="login-form-forgot">Forgot password</a>
     </div>
   </div>
-  <button nz-button class="login-form-button login-form-margin" [nzType]="'primary'">Log in</button>
+  <button nz-button class="login-form-button login-form-margin"
+          [nzType]="'primary'"
+          (click)="loginToSystem()"
+  >Log in</button>
 </form>
 </div>
