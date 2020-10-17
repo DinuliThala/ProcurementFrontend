@@ -8,19 +8,28 @@ import {ViewReqComponent} from './pages/view-req/view-req.component';
 import {AddBidsComponent} from './pages/add-bids/add-bids.component';
 import {AddPayComponent} from './pages/add-pay/add-pay.component';
 import {ProjectComponent} from './pages/project/project.component';
+import {SupplierComponent} from './pages/supplier/supplier.component';
+import {HomeComponent} from './pages/home/home.component';
+import {CreatePurchaseOrderComponent} from './pages/create-purchase-order/create-purchase-order.component';
 
 const routes: Routes = [
-  // { path: '', pathMatch: 'full', redirectTo: '/welcome' },
-  { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
   {path: 'login', component: LoginComponent},
-  {path: 'dashboard', component: DashboardComponent},
-  {path: 'view-purchase-order', component: ViewPurchaseOrderComponent},
-  {path: 'view-bids', component: ViewBidsComponent},
-  {path: 'add-pay', component: AddPayComponent },
-  {path: 'view-req', component: ViewReqComponent},
-  {path: 'add-bids', component: AddBidsComponent},
-  {path: 'project', component: ProjectComponent}
-// { path: 'welcome', loadChildren: () => import('./pages/welcome/welcome.module').then(m => m.WelcomeModule) }
+  { path: 'home',
+    component: HomeComponent,
+    children: [
+      {path: 'dashboard', component: DashboardComponent},
+      {path: 'view-purchase-order', component: ViewPurchaseOrderComponent},
+      {path: 'view-bids', component: ViewBidsComponent},
+      {path: 'add-pay', component: AddPayComponent },
+      {path: 'view-req', component: ViewReqComponent},
+      {path: 'add-bids', component: AddBidsComponent},
+      {path: 'project', component: ProjectComponent},
+      {path: 'create-order', component: CreatePurchaseOrderComponent}
+    ],
+  },
+  {path: 'supplier', component: SupplierComponent},
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
+
 ];
 
 @NgModule({

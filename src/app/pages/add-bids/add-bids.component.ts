@@ -12,28 +12,24 @@ import {Requisiton} from '../../models/Requisiton';
   styleUrls: ['./add-bids.component.css']
 })
 export class AddBidsComponent implements OnInit {
+  constructor(private backendService: BackendService,
+              private fb: FormBuilder,
+              private i18n: NzI18nService) {}
   validateForm!: FormGroup;
   date = null;
   bidData: any;
 
   // To show Req Id
+  reqId: any;
   reqList: Requisiton[] = [];
-  reqListDisplay: Requisiton[] = [];
   list: any;
-  items =  [];
-  private amount: any;
-  private description: any;
-  private requisitionId: any;
-  private supplierId: any;
-  constructor(private backendService: BackendService,
-              private fb: FormBuilder,
-              private i18n: NzI18nService) {}
-
-  fileList: NzUploadFile[] = [];
+   amount: any;
+   description: any;
+   requisitionId: any;
+   supplierId: any;
 
   ngOnInit(): void {
-    // throw new Error('Method not implemented.');
-    // this.addBids();
+
     this.validateForm = this.fb.group({
       amount: [this.amount, [Validators.required]],
       description: [this.description, [Validators.required]],
@@ -42,7 +38,7 @@ export class AddBidsComponent implements OnInit {
       // remember: [true]
     });
     this.formData();
-
+    this.getReqId();
   }
 
   submitForm(): void {
@@ -61,14 +57,12 @@ export class AddBidsComponent implements OnInit {
   onChange(result: Date): void {
     console.log('onChange: ', result);
   }
-  // Form Data validation handler
   formData(): any{
     return this.validateForm.value;
   }
 
   addBids(): any {
     // tslint:disable-next-line:forin
-    // const bidId = this.formData().bidId;
     const amount = this.formData().amount;
     const description = this.formData().description;
     const requisitionId = this.formData().requisitionId;
@@ -92,15 +86,8 @@ export class AddBidsComponent implements OnInit {
       data.map( record =>  {
         thisDup.reqList.push(record);
       });
-
-      this.reqListDisplay = thisDup.reqList;
-      for (this.list of this.reqList) {
-        this.items.push(
-          {requisition_id: this.list.requisition_id,
-          }
-        );
-        console.log(this.list);
-      }
     });
   }
+
+  setSelectedReqId($event: any): any { }
 }

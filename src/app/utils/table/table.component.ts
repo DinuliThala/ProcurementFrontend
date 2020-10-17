@@ -12,11 +12,12 @@ export class TableComponent implements OnInit {
 
   @Input() items;
   @Input() header;
-  @Input() img;
+  @Input() click;
+  @Input() buttons;
 
   page = 1;
   pageSize = 10;
-  collectionSize = 10;
+  // buttons: any;
 
   get sortData(): any[] {
     return this.items
@@ -29,6 +30,12 @@ export class TableComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+  }
+
+  onChangeHandler(): any {}
+
+  onClickChange(): any {
 
   }
 }

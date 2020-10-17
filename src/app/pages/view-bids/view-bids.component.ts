@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, TemplateRef, ViewContainerRef} from '@angular/core';
 import { NzTableFilterFn, NzTableFilterList, NzTableSortFn, NzTableSortOrder } from 'ng-zorro-antd/table';
 import {ColumnItem} from './ColumnItem';
 import {DataItem} from './DataItem';
 import {Requisiton} from '../../models/Requisiton';
 import {BackendService} from '../../services/backend.service';
 import {Bids} from '../../models/Bids';
+import {NzModalService} from 'ng-zorro-antd/modal';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-view-bids',
@@ -17,7 +19,6 @@ export class ViewBidsComponent implements OnInit {
   bidListDisplay: Bids[] = [];
   list: any;
   items =  [];
-
   header = [
     ' ',
     'ID',
@@ -27,9 +28,17 @@ export class ViewBidsComponent implements OnInit {
     'Supplier Id'
   ];
 
-  isVisible = false ;
+  // Modal variables
+  tplModalButtonLoading = false;
+  htmlModalVisible = false;
+  disabled = false;
 
-  constructor(private backendService: BackendService) { }
+  constructor(private backendService: BackendService,
+              private modal: NzModalService,
+              private viewContainerRef: ViewContainerRef,
+              private readonly router: Router
+  ) {
+  }
 
   ngOnInit(): void {
     this.getAllBids();
@@ -39,7 +48,7 @@ export class ViewBidsComponent implements OnInit {
     this.backendService.viewAllBids()
       .toPromise().then((data: Bids[]) => {
       const thisDup = this;
-      data.map( bid =>  {
+      data.map(bid => {
         thisDup.bidList.push(bid);
       });
 
@@ -54,33 +63,26 @@ export class ViewBidsComponent implements OnInit {
             supplierId: this.list.supplierId
           }
         );
-        console.log(this.list);
+        // console.log(this.list);
       }
     });
   }
 
+  onChangeHandler(): any {
+    console.log('working');
+    this.router.navigate(['home']);
+  }
 
-  getAllBidsBySupplier(): any {
-    this.backendService.viewBidsForSupplier(this.list.supplierId)
-      .toPromise().then((data: Bids[]) => {
-      const thisDup = this;
-      data.map( bid =>  {
-        thisDup.bidList.push(bid);
-      });
-
-      this.bidListDisplay = thisDup.bidList;
-      for (this.list of this.bidList) {
-        this.items.push(
-          {
-            bidId: this.list.bidId,
-            amount: this.list.amount,
-            description: this.list.description,
-            requisitionId: this.list.requisitionId,
-            // supplierId: this.list.supplierId
-          }
-        );
-        console.log(this.list);
-      }
+  createModal(): void {
+    this.modal.create({
+      nzTitle: 'Modal Title',
+      nzContent: 'string, will close after 1 sec',
+      nzClosable: false,
+      nzOnOk: () => new Promise(resolve => setTimeout(resolve, 1000))
     });
+  }
+
+  statusChange(): any {
+    console.log('button click');
   }
 }

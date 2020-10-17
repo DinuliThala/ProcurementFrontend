@@ -27,7 +27,6 @@ import {NzSelectModule} from 'ng-zorro-antd/select';
 import {NzCheckboxModule} from 'ng-zorro-antd/checkbox';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzInputModule } from 'ng-zorro-antd/input';
-import { NzUploadModule} from 'ng-zorro-antd/upload';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import {NzDatePickerModule} from 'ng-zorro-antd/date-picker';
 import {NzTableModule} from 'ng-zorro-antd/table';
@@ -38,6 +37,11 @@ import { NzStatisticModule } from 'ng-zorro-antd/statistic';
 import { TableComponent } from './utils/table/table.component';
 import {TableDataPipe} from './utils/table/TableData.pipe';
 import { SingeReqComponent } from './pages/singe-req/singe-req.component';
+import { SupplierComponent } from './pages/supplier/supplier.component';
+import { NzModalModule } from 'ng-zorro-antd/modal';
+import { CreatePurchaseOrderComponent } from './pages/create-purchase-order/create-purchase-order.component';
+import {NzRadioModule} from 'ng-zorro-antd/radio';
+import { NzUploadModule } from 'ng-zorro-antd/upload';
 
 registerLocaleData(en);
 
@@ -56,7 +60,9 @@ registerLocaleData(en);
     ProjectComponent,
     TableComponent,
     TableDataPipe,
-    SingeReqComponent
+    SingeReqComponent,
+    SupplierComponent,
+    CreatePurchaseOrderComponent
   ],
   imports: [
     BrowserModule,
@@ -79,7 +85,9 @@ registerLocaleData(en);
     NzDatePickerModule,
     NzTableModule,
     NzCardModule,
-    NzStatisticModule
+    NzStatisticModule,
+    NzModalModule,
+    NzRadioModule
   ],
   providers: [TableDataPipe, { provide: NZ_I18N, useValue: en_US }],
   bootstrap: [AppComponent]

@@ -1,0 +1,40 @@
+<h2>Create Purchase Order</h2>
+<p>Select Bid to accept and convert to a purchase order</p>
+
+<form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()">
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="requisitionId">Bid ID</nz-form-label>
+    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Please select an option">
+      <nz-select
+        formControlName="requisitionId"
+        id="requisitionId"
+        [(ngModel)]="reqId"
+        (ngModelChange)="setSelectedId($event)"
+        nzAllowClear
+        nzPlaceHolder="Choose Id"
+      >
+        <nz-option
+          *ngFor="let option of reqList"
+          [nzValue]="option.requisition_id"
+          [nzLabel]="option.requisition_id"
+        >{{ option }}
+        </nz-option>
+      </nz-select>
+    </nz-form-control>
+  </nz-form-item>
+
+  <div nz-row nzJustify="center">
+    <div nz-col nzFlex="3">
+      <nz-form-control [nzSpan]="14" [nzOffset]="6">
+        <button nz-button nzType="primary">Approve</button>
+      </nz-form-control>
+    </div>
+    <div nz-col nzFlex="2">
+      <button nz-button nzType="default" routerLink="/dashboard">
+        Decline
+      </button>
+    </div>
+  </div>
+
+</form>
+

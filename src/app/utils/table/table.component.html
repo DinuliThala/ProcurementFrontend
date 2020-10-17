@@ -5,16 +5,13 @@
   </thead>
   <tbody>
   <tr *ngFor="let item of items && sortData">
-    <td *ngFor="let value of item | TableData">
+    <td *ngFor="let value of item | TableData" (click)="onChangeHandler()">
       {{ value }}
     </td>
+<!--    <td *ngFor="let link of buttons">-->
+<!--    <button nz-button (click)="onClickChange()">{{link}}</button>-->
+<!--    </td>-->
   </tr>
   </tbody>
 
 </nz-table>
-
-<!--<ngb-pagination-->
-<!--  [collectionSize]="collectionSize"-->
-<!--  [(page)]="page"-->
-<!--  [pageSize]="pageSize">-->
-<!--</ngb-pagination>-->

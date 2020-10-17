@@ -1,29 +1,88 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
-import {NzUploadChangeParam, NzUploadFile} from 'ng-zorro-antd/upload';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {NzUploadChangeParam, NzUploadFile, NzUploadModule} from 'ng-zorro-antd/upload';
 import getISOWeek from 'date-fns/getISOWeek';
 import { en_US, NzI18nService, zh_CN } from 'ng-zorro-antd/i18n';
+import {BackendService} from '../../services/backend.service';
+
 @Component({
   selector: 'app-add-pay',
   templateUrl: './add-pay.component.html',
   styleUrls: ['./add-pay.component.css']
 })
 export class AddPayComponent implements OnInit {
+
+  loading = false;
+
+  constructor(private backendService: BackendService,
+              private fb: FormBuilder,
+              private i18n: NzI18nService) {}
   validateForm!: FormGroup;
   date = null;
-  isEnglish = false;
+  payData: any;
 
-  fileList: NzUploadFile[] = [
-    {
-      uid: '-1',
-      name: 'xxx.png',
-      status: 'done',
-      url: 'http://www.baidu.com/xxx.png'
-    }
-  ];
+  fileList: NzUploadFile[] = [];
+
+  // invoce
+  title: string;
+  description: string;
+  document: File = null;
+
+  // payment
+  // tslint:disable-next-line:variable-name
+  payee: any;
+  // tslint:disable-next-line:variable-name
+  payment_date: string;
+  payer: string;
+  // tslint:disable-next-line:variable-name
+  payed_on: string;
+  remark: string;
+  invoice: any;
+  uploadUrl = 'http://localhost:3001/uploads//' + document;
+
+  // addInvoice(): any {
+  //   const title = this.formData().title;
+  //   const description = this.formData().description;
+  //   const document = this.formData().document;
+  //
+  //   this.backendService.addInvoice(title, description, document)
+  //     .subscribe(data => {
+  //       this.payData = data;
+  //       console.log(data);
+  //     });
+  // }
+  // addPayment(): any {
+  //     const payee = this.formData().document;
+  //   // tslint:disable-next-line:variable-name
+  //     const payment_date = this.formData().document;
+  //     const payer = this.formData().document;
+  //   // tslint:disable-next-line:variable-name
+  //     const payed_on = this.formData().document;
+  //     const remark = this.formData().document;
+  //     const invoice = this.formData().document;
+  //
+  //     this.backendService.addPayment(payee, payment_date, payer, payed_on, remark, invoice)
+  //     .subscribe(data => {
+  //       this.payData = data;
+  //       console.log(data);
+  //     });
+  // }
 
   ngOnInit(): void {
-    throw new Error('Method not implemented.');
+    this.validateForm = this.fb.group({
+      title: [this.title, [Validators.required]],
+      description: [this.description, [Validators.required]],
+      document: [this.document, [Validators.required]],
+
+      payee: [this.payee, [Validators.required]],
+      payment_date: [this.payment_date, [Validators.required]],
+      payer: [this.payer, [Validators.required]],
+      payed_on: [this.payed_on, [Validators.required]],
+      remark: [this.remark, [Validators.required]],
+      invoice: [this.invoice, [Validators.required]],
+      // remember: [true]
+    });
+    this.formData();
   }
 
   submitForm(): void {
@@ -34,24 +93,6 @@ export class AddPayComponent implements OnInit {
     }
   }
 
-  updateConfirmValidator(): void {
-    /** wait for refresh value */
-    Promise.resolve().then(() => this.validateForm.controls.checkPassword.updateValueAndValidity());
-  }
-
-  confirmationValidator = (control: FormControl): { [s: string]: boolean } => {
-    if (!control.value) {
-      return {required: true};
-    } else if (control.value !== this.validateForm.controls.password.value) {
-      return {confirm: true, error: true};
-    }
-    return {};
-  }
-
-  getCaptcha(e: MouseEvent): void {
-    e.preventDefault();
-
-  }
 
   handleChange(info: NzUploadChangeParam): void {
     let fileList = [...info.fileList];
@@ -71,23 +112,71 @@ export class AddPayComponent implements OnInit {
 
     this.fileList = fileList;
   }
+  // uploadImage(info: { file: NzUploadFile }): void {
+  //   switch (info.file.status) {
+  //     case 'uploading':
+  //       this.loading = true;
+  //       break;
+  //     case 'done':
+  //       // Get this url from response in real world.
+  //       // tslint:disable-next-line:no-non-null-assertion
+  //       this.getBase64(info.file!.originFileObj!, (img: string) => {
+  //         this.loading = false;
+  //       });
+  //       this.document = info.file.originFileObj;
+  //
+  //       break;
+  //     case 'error':
+  //       // this.msg.error('Network error');
+  //       this.loading = false;
+  //       break;
+  //   }
+  // }
 
-  log(data: string): void {
-    console.log(data);
+  private getBase64(img: File, callback: (img: string) => void): void {
+    const reader = new FileReader();
+    // tslint:disable-next-line:no-non-null-assertion
+    reader.addEventListener('load', () => callback(reader.result!.toString()));
+    reader.readAsDataURL(img);
   }
 
-  constructor(private i18n: NzI18nService) {
-  }
+  // Date picker handler
   onChange(result: Date): void {
     console.log('onChange: ', result);
   }
 
-  getWeek(result: Date): void {
-    console.log('week: ', getISOWeek(result));
+  formData(): any{
+    return this.validateForm.value;
   }
 
-  changeLanguage(): void {
-    this.i18n.setLocale(this.isEnglish ? zh_CN : en_US);
-    this.isEnglish = !this.isEnglish;
+  addPayment(): any {
+      const title = this.formData().title;
+      const description = this.formData().description;
+      const document = this.formData().document;
+
+      const payee = this.formData().payee;
+    // tslint:disable-next-line:variable-name
+      const payment_date = this.formData().payment_date;
+      const payer = this.formData().payer;
+    // tslint:disable-next-line:variable-name
+      const payed_on = this.formData().payed_on;
+      const remark = this.formData().remark;
+      const invoice = this.formData().invoice;
+
+      this.backendService.addInvoice(title, description, document)
+        .subscribe(data => {
+          this.payData = data;
+          console.log(data);
+        });
+
+      //
+      // this.backendService.addPayment(payee, payment_date.toLocaleString(), payer, payed_on.toLocaleString(), remark, invoice)
+      //   .subscribe(data => {
+      //     this.payData = data;
+      //     console.log(data);
+      //   });
+
   }
+
+
 }

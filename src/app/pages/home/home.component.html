@@ -6,36 +6,52 @@
             [(nzCollapsed)]="isCollapsed"
             [nzTrigger]="null">
     <div class="sidebar-logo">
-      <a href="https://ng.ant.design/" target="_blank">
-        <img src="https://ng.ant.design/assets/img/logo.svg" alt="logo">
+      <a>
+        <img src="https://toppng.com/uploads/preview/6-stylish-building-logo-design-fashion-construction-portable-network-graphics-11563269435kav9pgdmst.png" alt="logo">
         <h1>ABC Construction</h1>
       </a>
     </div>
     <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
       <li nz-menu-item nzMatchRouter>
-        <a routerLink="/project">Project</a>
+        <i nz-icon nzType="book" nzTheme="fill"></i>
+        <a routerLink="/home/project">Project</a>
       </li>
       <li nz-menu-item nzMatchRouter>
-        <a routerLink="/dashboard">Dashboard</a>
+        <i nz-icon nzType="dashboard"></i>
+        <a routerLink="/home/dashboard">  Dashboard</a>
       </li>
-      <li nz-submenu nzOpen nzTitle="Bids" nzIcon="dashboard">
+      <li nz-submenu nzOpen nzTitle="Bids" nzIcon="money-collect">
         <ul>
           <li nz-menu-item nzMatchRouter>
-            <a routerLink="/add-bids">Add bids</a>
+            <i nz-icon nzType="plus-circle" nzTheme="fill"></i>
+            <a routerLink="/home/add-bids">Add bids</a>
           </li>
           <li nz-menu-item nzMatchRouter>
-            <a routerLink="/view-bids">View bids</a>
+            <i nz-icon nzType="snippets" nzTheme="fill"></i>
+            <a routerLink="/home/view-bids">View bids</a>
           </li>
         </ul>
       </li>
+      <li nz-submenu nzOpen nzTitle="Purchase order" nzIcon="money-collect">
+        <ul>
+          <li nz-menu-item nzMatchRouter>
+            <i nz-icon nzType="snippets" nzTheme="fill"></i>
+            <a routerLink="/home/create-order">Create purchase order</a>
+          </li>
+          <li nz-menu-item nzMatchRouter>
+            <i nz-icon nzType="snippets" nzTheme="fill"></i>
+            <a routerLink="/home/view-purchase-order">View purchase orders</a>
+          </li>
+        </ul>
+      </li>
+
       <li nz-menu-item nzMatchRouter>
-        <a routerLink="/view-purchase-order">View purchase orders</a>
+        <i nz-icon nzType="plus-circle" nzTheme="fill"></i>
+        <a routerLink="/home/add-pay">Add Payment</a>
       </li>
       <li nz-menu-item nzMatchRouter>
-        <a routerLink="/add-pay">Add Payment</a>
-      </li>
-      <li nz-menu-item nzMatchRouter>
-        <a routerLink="/view-req">View Requisition</a>
+        <i nz-icon nzType="snippets" nzTheme="fill"></i>
+        <a routerLink="/home/view-req">View Requisition</a>
       </li>
     </ul>
   </nz-sider>
@@ -48,6 +64,11 @@
                [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"
             ></i>
         </span>
+        <button nz-button class="login-form-button login-form-margin"
+                [nzType]="'primary'"
+                (click)="logOut()"
+
+        >Log Out</button>
       </div>
     </nz-header>
     <nz-content>
