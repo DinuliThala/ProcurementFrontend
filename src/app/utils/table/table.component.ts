@@ -15,7 +15,7 @@ export class TableComponent implements OnInit {
   @Input() img;
 
   page = 1;
-  pageSize = 4;
+  pageSize = 10;
   collectionSize = 10;
 
   get sortData(): any[] {

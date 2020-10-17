@@ -3,26 +3,25 @@
   <form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()">
 
     <nz-form-item>
-      <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="name">Supplier Name</nz-form-label>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="supplierId">Supplier Id</nz-form-label>
       <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="There is already a invoice with that name">
-        <input nz-input formControlName="name" id="name" />
+        <input nz-input formControlName="supplierId" id="supplierId" />
       </nz-form-control>
     </nz-form-item>
+
+<!--    <nz-form-item>-->
+<!--      <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="name">Supplier Name</nz-form-label>-->
+<!--      <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="There is already a invoice with that name">-->
+<!--        <input nz-input formControlName="name" id="name" />-->
+<!--      </nz-form-control>-->
+<!--    </nz-form-item>-->
 
     <nz-form-item>
       <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="email" nzRequired>Email</nz-form-label>
       <nz-form-control [nzSm]="14" [nzXs]="24">
-        <input nz-input type="email" id="email" formControlName="email" (ngModelChange)="updateConfirmValidator()" />
+        <input nz-input type="email" id="email" formControlName="email"/>
       </nz-form-control>
     </nz-form-item>
-
-    <nz-form-item>
-      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="price" nzRequired>Quoted Price</nz-form-label>
-      <nz-form-control [nzSm]="14" [nzXs]="24">
-        <input nz-input type="price" id="price" formControlName="price" (ngModelChange)="updateConfirmValidator()" />
-      </nz-form-control>
-    </nz-form-item>
-
 
     <nz-form-item>
       <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="number" nzRequired>Contact Number</nz-form-label>
@@ -34,14 +33,30 @@
     <nz-form-item>
       <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="address" nzRequired>Address</nz-form-label>
       <nz-form-control [nzSm]="14" [nzXs]="24">
-        <input nz-input type="address" id="address" formControlName="address" (ngModelChange)="updateConfirmValidator()" />
+        <input nz-input type="address" id="address" formControlName="address" />
+      </nz-form-control>
+    </nz-form-item>
+
+    <hr/>
+
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="requisitionId">Requisition Id</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="There is already a invoice with that name">
+        <input nz-input formControlName="requisitionId" id="requisitionId" />
       </nz-form-control>
     </nz-form-item>
 
     <nz-form-item>
-      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="cost" nzRequired>Transportation cost</nz-form-label>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="price" nzRequired>Quoted Price</nz-form-label>
       <nz-form-control [nzSm]="14" [nzXs]="24">
-        <input nz-input type="cost" id="cost" formControlName="cost" (ngModelChange)="updateConfirmValidator()" />
+        <input nz-input type="price" id="price" formControlName="price"/>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="amount" nzRequired>Transportation cost</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24">
+        <input nz-input type="cost" id="amount" formControlName="amount" />
       </nz-form-control>
     </nz-form-item>
 
@@ -51,21 +66,29 @@
     </nz-form-item>
 
     <nz-form-item>
-      <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="rid">Requisition ID</nz-form-label>
-      <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Please select an option">
-        <a nz-dropdown [nzDropdownMenu]="menu">
-          Select ID
-          <i nz-icon nzType="down"></i>
-        </a>
-        <nz-dropdown-menu #menu="nzDropdownMenu">
-          <ul nz-menu>
-            <li nz-menu-item (click)="log('1st menu item')">1st menu item</li>
-            <li nz-menu-item (click)="log('2nd menu item')">2nd menu item</li>
-            <li nz-menu-item (click)="log('3rd menu item')">3rd menu item</li>
-          </ul>
-        </nz-dropdown-menu>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="description">Description</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="There is already a invoice with that name">
+        <input nz-input formControlName="description" id="description" />
       </nz-form-control>
     </nz-form-item>
+
+
+<!--    <nz-form-item>-->
+<!--      <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="rid">Requisition ID</nz-form-label>-->
+<!--      <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Please select an option">-->
+<!--        <a nz-dropdown [nzDropdownMenu]="menu">-->
+<!--          Select ID-->
+<!--          <i nz-icon nzType="down"></i>-->
+<!--        </a>-->
+<!--        <nz-dropdown-menu #menu="nzDropdownMenu">-->
+<!--          <ul nz-menu>-->
+<!--            <li nz-menu-item (click)="log('1st menu item')">1st menu item</li>-->
+<!--            <li nz-menu-item (click)="log('2nd menu item')">2nd menu item</li>-->
+<!--            <li nz-menu-item (click)="log('3rd menu item')">3rd menu item</li>-->
+<!--          </ul>-->
+<!--        </nz-dropdown-menu>-->
+<!--      </nz-form-control>-->
+<!--    </nz-form-item>-->
 
     <div nz-row nzJustify="center">
       <div nz-col nzFlex="3">

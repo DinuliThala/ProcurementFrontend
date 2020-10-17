@@ -10,27 +10,19 @@ import {Requisiton} from '../models/Requisiton';
 })
 export class BackendService {
 
-
   private currentUserSubject: BehaviorSubject<User>;
   public currentUser: Observable<User>;
 
   private readonly uri = 'http://localhost:3001';
 
-
   constructor(private http: HttpClient) { }
 
-
-  login(username, password): any {
-  const headers = new HttpHeaders({
+  login(email, password): any {
+    const headers = new HttpHeaders({
       'Content-Type': 'application/json'
     });
-
-  const params = new HttpParams()
-      .set('email', username)
-      .set('password', password);
-
-  return this.http
-      .post(this.uri + '/login', { headers, params })
+    return this.http
+      .post(this.uri + '/login', { email, password }, {headers})
       .pipe(catchError(this.errorHandler));
 
   }
@@ -53,7 +45,39 @@ export class BackendService {
       })
       .pipe(catchError(this.errorHandler));
   }
-  // Error Handler
+
+  addBid(amount, description, requisitionId, supplierId): any {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json'
+    });
+    return this.http
+      .post(this.uri + '/bid/add', { amount, description, requisitionId, supplierId }, {headers})
+      .pipe(catchError(this.errorHandler));
+  }
+
+  viewAllBids(): any {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json'
+    });
+
+    // API Call
+    return this.http
+      .get<Requisiton[]>(this.uri + `/bid/getall`, {
+        headers
+      })
+      .pipe(catchError(this.errorHandler));
+}
+
+  viewBidsForSupplier(supplierId): any {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json'
+    });
+    return this.http
+      .post(this.uri + '/bid/getallbysupplier', { supplierId }, {headers})
+      .pipe(catchError(this.errorHandler));
+
+}
+
   // tslint:disable-next-line:typedef
   errorHandler(error: HttpErrorResponse) {
     return throwError(error.error.msg || 'Something went wrong!');

@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import {FormControl, FormGroup} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {NzUploadChangeParam, NzUploadFile} from 'ng-zorro-antd/upload';
 import {en_US, NzI18nService, zh_CN} from 'ng-zorro-antd/i18n';
 import getISOWeek from 'date-fns/getISOWeek';
+import {BackendService} from '../../services/backend.service';
+import {Requisiton} from '../../models/Requisiton';
 
 @Component({
   selector: 'app-add-bids',
@@ -12,19 +14,35 @@ import getISOWeek from 'date-fns/getISOWeek';
 export class AddBidsComponent implements OnInit {
   validateForm!: FormGroup;
   date = null;
-  isEnglish = false;
+  bidData: any;
 
-  fileList: NzUploadFile[] = [
-    {
-      uid: '-1',
-      name: 'xxx.png',
-      status: 'done',
-      url: 'http://www.baidu.com/xxx.png'
-    }
-  ];
+  // To show Req Id
+  reqList: Requisiton[] = [];
+  reqListDisplay: Requisiton[] = [];
+  list: any;
+  items =  [];
+  private amount: any;
+  private description: any;
+  private requisitionId: any;
+  private supplierId: any;
+  constructor(private backendService: BackendService,
+              private fb: FormBuilder,
+              private i18n: NzI18nService) {}
+
+  fileList: NzUploadFile[] = [];
 
   ngOnInit(): void {
-    throw new Error('Method not implemented.');
+    // throw new Error('Method not implemented.');
+    // this.addBids();
+    this.validateForm = this.fb.group({
+      amount: [this.amount, [Validators.required]],
+      description: [this.description, [Validators.required]],
+      requisitionId: [this.requisitionId, [Validators.required]],
+      supplierId: [this.supplierId, [Validators.required]],
+      // remember: [true]
+    });
+    this.formData();
+
   }
 
   submitForm(): void {
@@ -35,61 +53,54 @@ export class AddBidsComponent implements OnInit {
     }
   }
 
-  updateConfirmValidator(): void {
-    /** wait for refresh value */
-    Promise.resolve().then(() => this.validateForm.controls.checkPassword.updateValueAndValidity());
-  }
-
-  confirmationValidator = (control: FormControl): { [s: string]: boolean } => {
-    if (!control.value) {
-      return {required: true};
-    } else if (control.value !== this.validateForm.controls.password.value) {
-      return {confirm: true, error: true};
-    }
-    return {};
-  }
-
-  getCaptcha(e: MouseEvent): void {
-    e.preventDefault();
-
-  }
-
-  handleChange(info: NzUploadChangeParam): void {
-    let fileList = [...info.fileList];
-
-    // 1. Limit the number of uploaded files
-    // Only to show two recent uploaded files, and old ones will be replaced by the new
-    fileList = fileList.slice(-2);
-
-    // 2. Read from response and show file link
-    fileList = fileList.map(file => {
-      if (file.response) {
-        // Component will show file.url as link
-        file.url = file.response.url;
-      }
-      return file;
-    });
-
-    this.fileList = fileList;
-  }
-
   log(data: string): void {
     console.log(data);
   }
 
-  constructor(private i18n: NzI18nService) {
-  }
+  // Date picker change handler
   onChange(result: Date): void {
     console.log('onChange: ', result);
   }
-
-  getWeek(result: Date): void {
-    console.log('week: ', getISOWeek(result));
+  // Form Data validation handler
+  formData(): any{
+    return this.validateForm.value;
   }
 
-  changeLanguage(): void {
-    this.i18n.setLocale(this.isEnglish ? zh_CN : en_US);
-    this.isEnglish = !this.isEnglish;
+  addBids(): any {
+    // tslint:disable-next-line:forin
+    // const bidId = this.formData().bidId;
+    const amount = this.formData().amount;
+    const description = this.formData().description;
+    const requisitionId = this.formData().requisitionId;
+    const supplierId = this.formData().supplierId;
+
+    this.backendService.addBid(amount, description, requisitionId, supplierId)
+      .subscribe(data => {
+        this.bidData = data;
+        console.log(data);
+      });
   }
 
+  fillSupplierData(): any {
+
+  }
+
+  getReqId(): any {
+    this.backendService.viewAllRequisition()
+      .toPromise().then((data: Requisiton[]) => {
+      const thisDup = this;
+      data.map( record =>  {
+        thisDup.reqList.push(record);
+      });
+
+      this.reqListDisplay = thisDup.reqList;
+      for (this.list of this.reqList) {
+        this.items.push(
+          {requisition_id: this.list.requisition_id,
+          }
+        );
+        console.log(this.list);
+      }
+    });
+  }
 }

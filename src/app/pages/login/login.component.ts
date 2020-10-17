@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {BackendService} from '../../services/backend.service';
 import {Router} from '@angular/router';
+import {da_DK} from 'ng-zorro-antd/i18n';
 
 @Component({
   selector: 'app-login',
@@ -21,8 +22,6 @@ export class LoginComponent implements OnInit {
       this.validateForm.controls[i].markAsDirty();
       this.validateForm.controls[i].updateValueAndValidity();
     }
-
-
   }
 
   constructor(private fb: FormBuilder,
@@ -37,26 +36,26 @@ export class LoginComponent implements OnInit {
       password: [this.passwordLogin, [Validators.required]],
       remember: [true]
     });
+    this.formData();
     console.log(this.userNameLogin, this.passwordLogin);
   }
 
-  // tslint:disable-next-line:typedef
-  loginToSystem() {
-    const fd1 = new FormData();
-    const fd2 = new FormData();
+  formData(): any{
+    return this.validateForm.value;
+  }
 
-    fd1.append('email', this.userNameLogin);
-    fd2.append('password', this.passwordLogin);
+  loginToSystem(): any {
+    const email = this.formData().email;
+    const password = this.formData().password;
 
-    this.backendService.login(fd1, fd2)
+    this.backendService.login(email, password)
       .subscribe(data => {
         this.loginData = data;
         console.log(data);
-        console.log(this.userNameLogin, this.passwordLogin);
+        // console.log('helo');
       });
-    console.log(this.userNameLogin, this.passwordLogin);
-
-    this.router.navigate(['dashboard']);
+    console.log(email, password);
+    // this.router.navigate(['dashboard']);
 
   }
 }
