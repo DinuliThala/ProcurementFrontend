@@ -1,24 +1,26 @@
-  <p style="font-size:14px;color:rgba(0, 0, 0, 0.85);margin-bottom:16px;font-weight: 500;">
-      Select a project
-  </p>
-  <nz-card style="margin-top:16px;" [nzExtra]="extraTemplate">
+<p style="font-size:14px;color:rgba(0, 0, 0, 0.85);margin-bottom:16px;font-weight: 500;">
+  Select a project
+</p>
+<nz-card style="margin-top:16px;" >
+<form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()">
     <nz-form-item>
-      <nz-form-label [nzSm]="8" [nzXs]="24" nzRequired nzFor="title">Select an option</nz-form-label>
-      <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Please select a valid option">
-        <button nz-button nz-dropdown [nzDropdownMenu]="menu4">
-          Select a project
-          <i nz-icon nzType="down"></i>
-        </button>
-        <nz-dropdown-menu #menu4="nzDropdownMenu">
-          <ul nz-menu>
-            <li nz-menu-item>menu1 1st menu item</li>
-            <li nz-menu-item>menu1 2nd menu item</li>
-            <li nz-menu-item>menu1 3rd menu item</li>
-          </ul>
-        </nz-dropdown-menu>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="site_id">Requisition ID</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Please select an option">
+        <nz-select
+          formControlName="site_id"
+          id="site_id"
+          [(ngModel)]="siteId"
+          (ngModelChange)="setSelectedId($event)"
+          nzAllowClear
+          nzPlaceHolder="Choose Id"
+        >
+          <nz-option
+            *ngFor="let option of reqList"
+            [nzValue]="option.site_id"
+          >{{ option }}
+          </nz-option>
+        </nz-select>
       </nz-form-control>
     </nz-form-item>
-  </nz-card>
-<ng-template #extraTemplate>
-  <a>More</a>
-</ng-template>
+</form>
+</nz-card>
