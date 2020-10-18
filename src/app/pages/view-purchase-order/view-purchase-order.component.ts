@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {BackendService} from '../../services/backend.service';
 import {Bids} from '../../models/Bids';
+import {Purchased} from '../../models/Purchased';
 
 @Component({
   selector: 'app-view-purchase-order',
@@ -9,28 +10,48 @@ import {Bids} from '../../models/Bids';
 })
 export class ViewPurchaseOrderComponent implements OnInit {
 
-  bidList: Bids[] = [];
-  bidListDisplay: Bids[] = [];
+  poList: Purchased[] = [];
+  poListDisplay: Purchased[] = [];
   list: any;
-  items =  [];
+  items = [];
   header = [
-    ' ',
-    'ID',
+    'Purchase Id',
+    'Supplier Id',
+    'Transport Cost',
     'Amount',
-    'Description',
     'Requisition Id',
-    'Supplier Id'
+    'Description'
   ];
 
 
   constructor(private backendService: BackendService) { }
 
   ngOnInit(): void {
+    this.viewAllPurchaseOrders();
   }
 
   viewAllPurchaseOrders(): any {
+    this.backendService.getAllFromPurchased()
+      .toPromise().then((data: Purchased[]) => {
+      const thisDup = this;
+      data.map(bid => {
+        thisDup.poList.push(bid);
+      });
 
+      this.poListDisplay = thisDup.poList;
+      for (this.list of this.poList) {
+        this.items.push(
+          {
+            purchaseId: this.list.purchaseId,
+            supplierId: this.list.supplierId,
+            transportCost: this.list.transportCost,
+            requisitionId: this.list.requisitionId,
+            description: this.list.description
+          }
+        );
+        // console.log(this.list);
+      }
+    });
   }
-
 
 }

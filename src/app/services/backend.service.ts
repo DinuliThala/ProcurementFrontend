@@ -4,11 +4,13 @@ import {catchError} from 'rxjs/operators';
 import {BehaviorSubject, Observable, throwError} from 'rxjs';
 import {Requisiton} from '../models/Requisiton';
 import {Supplier} from '../models/Supplier';
+import {Purchased} from '../models/Purchased';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BackendService {
+
   private readonly uri = 'http://localhost:3001';
 
   private apiData = new BehaviorSubject<any>(null);
@@ -173,12 +175,35 @@ export class BackendService {
   }
 
   // tslint:disable-next-line:variable-name
-  getSiteByid(site_id): any{
+  getSiteById(site_id): any{
     const headers = new HttpHeaders({
       'Content-Type': 'application/json'
     });
     return this.http
       .post(this.uri + '/site/getbyid', { site_id }, {headers})
+      .pipe(catchError(this.errorHandler));
+  }
+
+  // tslint:disable-next-line:variable-name
+  updateBidStatus(bid_id, status): any {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json'
+    });
+    return this.http
+      .post(this.uri + '/bid/updatestatus', { bid_id, status }, {headers})
+      .pipe(catchError(this.errorHandler));
+  }
+
+  getAllFromPurchased(): any {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json'
+    });
+
+    // API Call
+    return this.http
+      .get<Purchased[]>(this.uri + `/bid/getallpurchased`, {
+        headers
+      })
       .pipe(catchError(this.errorHandler));
   }
 

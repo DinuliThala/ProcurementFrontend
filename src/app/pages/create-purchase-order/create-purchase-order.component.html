@@ -6,9 +6,8 @@
     <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="bidId">Bid ID</nz-form-label>
     <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Please select an option">
       <nz-select
-        formControlName="bidID"
+        formControlName="bidId"
         id="bidId"
-        [(ngModel)]="bids"
         (ngModelChange)="setSelectedId($event)"
         nzAllowClear
         nzPlaceHolder="Choose Id"
@@ -16,22 +15,37 @@
         <nz-option
           *ngFor="let option of bidList"
           [nzValue]="option.bidId"
-          [nzLabel]="option.bidId"
+          [nzLabel]="option.bidId.toLocaleString()"
         >{{ option }}
         </nz-option>
       </nz-select>
     </nz-form-control>
   </nz-form-item>
 
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="status" nzRequired>Update status of bid </nz-form-label>
+    <nz-form-control [nzSm]="14" [nzXs]="24">
+      <nz-radio-group
+        formControlName="status"
+        [(ngModel)]="radioValue">
+        <label nz-radio nzValue="approve">Approve</label>
+        <label nz-radio nzValue="decline">Decline</label>
+      </nz-radio-group>
+    </nz-form-control>
+  </nz-form-item>
+
   <div nz-row nzJustify="center">
     <div nz-col nzFlex="3">
       <nz-form-control [nzSpan]="14" [nzOffset]="6">
-        <button nz-button nzType="primary">Approve</button>
+        <button nz-button
+                nzType="primary"
+                (click)="updateBidStatus()"
+        >Save</button>
       </nz-form-control>
     </div>
     <div nz-col nzFlex="2">
       <button nz-button nzType="default" routerLink="/dashboard">
-        Decline
+        Back
       </button>
     </div>
   </div>

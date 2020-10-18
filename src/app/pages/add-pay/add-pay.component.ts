@@ -15,7 +15,7 @@ export class AddPayComponent implements OnInit {
 
   constructor(private backendService: BackendService,
               private fb: FormBuilder,
-              private i18n: NzI18nService) {}
+              private i18n: NzI18nService, ) {}
   validateForm!: FormGroup;
   date = null;
   payData: any;
@@ -84,7 +84,7 @@ export class AddPayComponent implements OnInit {
     return this.validateForm.value;
   }
 
-  addInvoice(): any {
+  addPayment(): any {
     const title = this.formData().title;
     const description = this.formData().description;
     const document = this.formData().document;
@@ -94,18 +94,17 @@ export class AddPayComponent implements OnInit {
         this.payData = data;
         console.log(data);
       });
-  }
-  addPayment(): any {
-      const payee = this.formData().payee;
-    // tslint:disable-next-line:variable-name
-      const payment_date = this.formData().payment_date;
-      const payer = this.formData().payer;
-    // tslint:disable-next-line:variable-name
-      const payed_on = this.formData().payed_on;
-      const remark = this.formData().remark;
-      const invoice = this.formData().invoice;
 
-      this.backendService.addPayment(payee, payment_date, payer, payed_on, remark, invoice)
+    const payee = this.formData().payee;
+    // tslint:disable-next-line:variable-name
+    const payment_date = this.formData().payment_date;
+    const payer = this.formData().payer;
+    // tslint:disable-next-line:variable-name
+    const payed_on = this.formData().payed_on;
+    const remark = this.formData().remark;
+    const invoice = this.formData().invoice;
+
+    this.backendService.addPayment(payee, payment_date, payer, payed_on, remark, invoice)
       .subscribe(data => {
         this.payData = data;
         console.log(data);

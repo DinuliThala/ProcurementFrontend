@@ -19,62 +19,60 @@
     <nz-form-item>
       <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="document" nzRequired>Proof</nz-form-label>
       <nz-form-control [nzSm]="14" [nzXs]="24">
-
         <nz-upload
-          [nzAction]="uploadUrl"
-          [nzHeaders]="{ authorization: 'authorization-text' }"
-          (nzChange)="handleChange($event)"
-        >
-          <button nz-button><i nz-icon nzType="upload"></i>Click to Upload</button>
+           [nzAction]="uploadUrl"
+           [nzFileList]="fileList"
+           (nzChange)="handleChange($event)">
+          <button nz-button><i nz-icon nzType="upload"></i>Upload</button>
         </nz-upload>
       </nz-form-control>
     </nz-form-item>
 
     <hr>
 
-<!--    <nz-form-item>-->
-<!--      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="payee" nzRequired>Payee Account Number</nz-form-label>-->
-<!--      <nz-form-control [nzSm]="14" [nzXs]="24">-->
-<!--        <input nz-input type="text" id="payee" formControlName="payee"/>-->
-<!--      </nz-form-control>-->
-<!--    </nz-form-item>-->
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="payee" nzRequired>Payee Account Number</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24">
+        <input nz-input type="text" id="payee" formControlName="payee"/>
+      </nz-form-control>
+    </nz-form-item>
 
-<!--    <nz-form-item>-->
-<!--      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="remark" nzRequired>Remarks</nz-form-label>-->
-<!--      <nz-form-control [nzSm]="14" [nzXs]="24">-->
-<!--        <input nz-input type="text" formControlName="remark" id="remark" />-->
-<!--      </nz-form-control>-->
-<!--    </nz-form-item>-->
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="remark" nzRequired>Remarks</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24">
+        <input nz-input type="text" formControlName="remark" id="remark" />
+      </nz-form-control>
+    </nz-form-item>
 
-<!--    <nz-form-item>-->
-<!--      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="payment_date" nzRequired>Payment date</nz-form-label>-->
-<!--      <nz-form-control [nzSm]="14" [nzXs]="24">-->
-<!--              <nz-date-picker [(ngModel)]="date"-->
-<!--                              formControlName="payment_date"-->
-<!--                              (ngModelChange)="onChange($event)"></nz-date-picker>-->
-<!--      </nz-form-control>-->
-<!--    </nz-form-item>-->
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="payment_date" nzRequired>Payment date</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24">
+              <nz-date-picker [(ngModel)]="date"
+                              formControlName="payment_date"
+                              (ngModelChange)="onChange($event)"></nz-date-picker>
+      </nz-form-control>
+    </nz-form-item>
 
-<!--    <nz-form-item>-->
-<!--      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="payed_on" nzRequired>Paid on</nz-form-label>-->
-<!--      <nz-form-control [nzSm]="14" [nzXs]="24">-->
-<!--              <nz-date-picker [(ngModel)]="date"-->
-<!--                              formControlName="payed_on"-->
-<!--                              (ngModelChange)="onChange($event)"></nz-date-picker>-->
-<!--      </nz-form-control>-->
-<!--    </nz-form-item>-->
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="payed_on" nzRequired>Paid on</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24">
+              <nz-date-picker [(ngModel)]="date"
+                              formControlName="payed_on"
+                              (ngModelChange)="onChange($event)"></nz-date-picker>
+      </nz-form-control>
+    </nz-form-item>
 
-<!--    <nz-form-item>-->
-<!--      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="invoice" nzRequired>Invoice Number</nz-form-label>-->
-<!--      <nz-form-control [nzSm]="14" [nzXs]="24">-->
-<!--        <input nz-input type="text"formControlName="invoice" id="invoice" />-->
-<!--      </nz-form-control>-->
-<!--    </nz-form-item>-->
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="invoice" nzRequired>Invoice Number</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24">
+        <input nz-input type="text"formControlName="invoice" id="invoice" />
+      </nz-form-control>
+    </nz-form-item>
 
     <nz-form-control [nzSpan]="14" [nzOffset]="6">
       <button nz-button
               nzType="primary"
-              (click)="addInvoice()"
+              (click)="addPayment()"
       >Add Payment</button>
     </nz-form-control>
 </form>

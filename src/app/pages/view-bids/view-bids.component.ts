@@ -1,4 +1,4 @@
-import {Component, OnInit, TemplateRef, ViewContainerRef} from '@angular/core';
+import {Component, OnInit, ViewContainerRef} from '@angular/core';
 import {BackendService} from '../../services/backend.service';
 import {Bids} from '../../models/Bids';
 import {NzModalService} from 'ng-zorro-antd/modal';
@@ -23,11 +23,6 @@ export class ViewBidsComponent implements OnInit {
     'Requisition Id',
     'Supplier Id'
   ];
-
-  // Modal variables
-  tplModalButtonLoading = false;
-  htmlModalVisible = false;
-  disabled = false;
 
   constructor(private backendService: BackendService,
               private modal: NzModalService,

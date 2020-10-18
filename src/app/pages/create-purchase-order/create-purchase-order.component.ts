@@ -17,13 +17,18 @@ export class CreatePurchaseOrderComponent implements OnInit {
   list: any;
   private bidId: any;
   bids: any;
+  private poData: any;
+  private status: any;
+  radioValue: any;
 
   constructor(private backendService: BackendService,
-              private fb: FormBuilder) { }
+              private fb: FormBuilder) {
+  }
 
   ngOnInit(): void {
     this.validateForm = this.fb.group({
-      bidId: [this.bidId, [Validators.required]]
+      bidId: [this.bidId, [Validators.required]],
+      status: [this.status, [Validators.required]]
       // remember: [true]
     });
     this.formData();
@@ -38,12 +43,11 @@ export class CreatePurchaseOrderComponent implements OnInit {
     }
   }
 
-  formData(): any{
+  formData(): any {
     return this.validateForm.value;
   }
 
   setSelectedId($event: any): any {
-
   }
 
   getAllBids(): any {
@@ -56,4 +60,15 @@ export class CreatePurchaseOrderComponent implements OnInit {
     });
   }
 
+  updateBidStatus(): any {
+    const bidId = this.formData().bidId;
+    const status = this.formData().status;
+
+    this.backendService.updateBidStatus(bidId, status)
+      .subscribe(data => {
+        this.poData = data;
+        console.log(data);
+        // this.backendService.setData(data);
+      });
+  }
 }

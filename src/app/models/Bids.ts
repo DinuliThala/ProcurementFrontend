@@ -4,4 +4,7 @@ export class Bids {
   description: string;
   requisitionId: number;
   supplierId: number;
+  // tslint:disable-next-line:variable-name
+  transport_cost: number;
+  status: string;
 }
