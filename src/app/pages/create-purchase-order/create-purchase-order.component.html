@@ -3,20 +3,20 @@
 
 <form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()">
   <nz-form-item>
-    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="requisitionId">Bid ID</nz-form-label>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="bidId">Bid ID</nz-form-label>
     <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Please select an option">
       <nz-select
-        formControlName="requisitionId"
-        id="requisitionId"
-        [(ngModel)]="reqId"
+        formControlName="bidID"
+        id="bidId"
+        [(ngModel)]="bids"
         (ngModelChange)="setSelectedId($event)"
         nzAllowClear
         nzPlaceHolder="Choose Id"
       >
         <nz-option
-          *ngFor="let option of reqList"
-          [nzValue]="option.requisition_id"
-          [nzLabel]="option.requisition_id"
+          *ngFor="let option of bidList"
+          [nzValue]="option.bidId"
+          [nzLabel]="option.bidId"
         >{{ option }}
         </nz-option>
       </nz-select>

@@ -5,6 +5,7 @@ import {en_US, NzI18nService, zh_CN} from 'ng-zorro-antd/i18n';
 import getISOWeek from 'date-fns/getISOWeek';
 import {BackendService} from '../../services/backend.service';
 import {Requisiton} from '../../models/Requisiton';
+import {Supplier} from '../../models/Supplier';
 
 @Component({
   selector: 'app-add-bids',
@@ -12,6 +13,7 @@ import {Requisiton} from '../../models/Requisiton';
   styleUrls: ['./add-bids.component.css']
 })
 export class AddBidsComponent implements OnInit {
+
   constructor(private backendService: BackendService,
               private fb: FormBuilder,
               private i18n: NzI18nService) {}
@@ -20,13 +22,16 @@ export class AddBidsComponent implements OnInit {
   bidData: any;
 
   // To show Req Id
-  reqId: any;
-  reqList: Requisiton[] = [];
-  list: any;
-   amount: any;
-   description: any;
-   requisitionId: any;
-   supplierId: any;
+    reqId: any;
+    reqList: Requisiton[] = [];
+    list: any;
+    amount: any;
+    description: any;
+    requisitionId: any;
+    supplierId: any;
+
+    supList: Supplier[] = [];
+    supId: any;
 
   ngOnInit(): void {
 
@@ -52,8 +57,6 @@ export class AddBidsComponent implements OnInit {
   log(data: string): void {
     console.log(data);
   }
-
-  // Date picker change handler
   onChange(result: Date): void {
     console.log('onChange: ', result);
   }
@@ -75,8 +78,14 @@ export class AddBidsComponent implements OnInit {
       });
   }
 
-  fillSupplierData(): any {
-
+  getSupplierData(): any {
+    this.backendService.viewAllSuppliers()
+      .toPromise().then((data: Supplier[]) => {
+      const thisDup = this;
+      data.map(record => {
+        thisDup.supList.push(record);
+      });
+    });
   }
 
   getReqId(): any {
@@ -90,4 +99,6 @@ export class AddBidsComponent implements OnInit {
   }
 
   setSelectedReqId($event: any): any { }
+
+  setSelectedSupId($event: any): any { }
 }

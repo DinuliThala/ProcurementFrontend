@@ -14,7 +14,6 @@ import { en_US } from 'ng-zorro-antd/i18n';
 import { registerLocaleData } from '@angular/common';
 import en from '@angular/common/locales/en';
 import { AddBidsComponent } from './pages/add-bids/add-bids.component';
-import { AddAppComponent } from './pages/add-app/add-app.component';
 import { LoginComponent } from './pages/login/login.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { ViewBidsComponent } from './pages/view-bids/view-bids.component';
@@ -42,6 +41,7 @@ import { NzModalModule } from 'ng-zorro-antd/modal';
 import { CreatePurchaseOrderComponent } from './pages/create-purchase-order/create-purchase-order.component';
 import {NzRadioModule} from 'ng-zorro-antd/radio';
 import { NzUploadModule } from 'ng-zorro-antd/upload';
+import { ViewSupplierComponent } from './pages/view-supplier/view-supplier.component';
 
 registerLocaleData(en);
 
@@ -49,7 +49,6 @@ registerLocaleData(en);
   declarations: [
     AppComponent,
     AddBidsComponent,
-    AddAppComponent,
     LoginComponent,
     DashboardComponent,
     ViewBidsComponent,
@@ -62,7 +61,8 @@ registerLocaleData(en);
     TableDataPipe,
     SingeReqComponent,
     SupplierComponent,
-    CreatePurchaseOrderComponent
+    CreatePurchaseOrderComponent,
+    ViewSupplierComponent
   ],
   imports: [
     BrowserModule,

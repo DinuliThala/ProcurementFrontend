@@ -19,11 +19,13 @@
     <nz-form-item>
       <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="document" nzRequired>Proof</nz-form-label>
       <nz-form-control [nzSm]="14" [nzXs]="24">
+
         <nz-upload
-           [nzAction]="uploadUrl"
-           [nzFileList]="fileList"
-           (nzChange)="handleChange($event)">
-          <button nz-button><i nz-icon nzType="upload"></i>Upload</button>
+          [nzAction]="uploadUrl"
+          [nzHeaders]="{ authorization: 'authorization-text' }"
+          (nzChange)="handleChange($event)"
+        >
+          <button nz-button><i nz-icon nzType="upload"></i>Click to Upload</button>
         </nz-upload>
       </nz-form-control>
     </nz-form-item>
@@ -72,7 +74,7 @@
     <nz-form-control [nzSpan]="14" [nzOffset]="6">
       <button nz-button
               nzType="primary"
-              (click)="addPayment()"
+              (click)="addInvoice()"
       >Add Payment</button>
     </nz-form-control>
 </form>

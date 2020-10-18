@@ -1,8 +1,4 @@
 import {Component, OnInit, TemplateRef, ViewContainerRef} from '@angular/core';
-import { NzTableFilterFn, NzTableFilterList, NzTableSortFn, NzTableSortOrder } from 'ng-zorro-antd/table';
-import {ColumnItem} from './ColumnItem';
-import {DataItem} from './DataItem';
-import {Requisiton} from '../../models/Requisiton';
 import {BackendService} from '../../services/backend.service';
 import {Bids} from '../../models/Bids';
 import {NzModalService} from 'ng-zorro-antd/modal';

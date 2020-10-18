@@ -23,7 +23,12 @@ export class ProjectComponent implements OnInit {
     this.validateForm = this.fb.group({
       site_id: [this.site_id, [Validators.required]],
     });
+    this.formData();
     this.getSites();
+  }
+
+  formData(): any{
+    return this.validateForm.value;
   }
 
   submitForm(): void {
@@ -39,7 +44,7 @@ export class ProjectComponent implements OnInit {
       const thisDup = this;
       data.map( record =>  {
         thisDup.reqList.push(record);
-        console.log(record);
+        console.log(record.site_id);
       });
     });
   }

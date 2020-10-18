@@ -4,7 +4,7 @@
 <nz-card style="margin-top:16px;" >
 <form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()">
     <nz-form-item>
-      <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="site_id">Requisition ID</nz-form-label>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="site_id">Project ID</nz-form-label>
       <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Please select an option">
         <nz-select
           formControlName="site_id"
@@ -17,10 +17,16 @@
           <nz-option
             *ngFor="let option of reqList"
             [nzValue]="option.site_id"
+            [nzLabel]="option.site_id"
           >{{ option }}
           </nz-option>
         </nz-select>
       </nz-form-control>
     </nz-form-item>
+  <div nz-row nzJustify="center">
+      <nz-form-control [nzSpan]="14" [nzOffset]="6">
+        <button nz-button nzType="primary">Save</button>
+      </nz-form-control>
+    </div>
 </form>
 </nz-card>

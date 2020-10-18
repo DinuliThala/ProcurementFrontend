@@ -3,6 +3,7 @@ import {NzButtonSize} from 'ng-zorro-antd/button';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {BackendService} from '../../services/backend.service';
 import {Requisiton} from '../../models/Requisiton';
+import {Bids} from '../../models/Bids';
 
 @Component({
   selector: 'app-create-purchase-order',
@@ -12,9 +13,10 @@ import {Requisiton} from '../../models/Requisiton';
 export class CreatePurchaseOrderComponent implements OnInit {
   validateForm!: FormGroup;
   reqId: any;
-  reqList: Requisiton[] = [];
+  bidList: Bids[] = [];
   list: any;
   private bidId: any;
+  bids: any;
 
   constructor(private backendService: BackendService,
               private fb: FormBuilder) { }
@@ -25,7 +27,7 @@ export class CreatePurchaseOrderComponent implements OnInit {
       // remember: [true]
     });
     this.formData();
-    // this.getReqId();
+    this.getAllBids();
   }
 
   submitForm(): void {
@@ -42,6 +44,16 @@ export class CreatePurchaseOrderComponent implements OnInit {
 
   setSelectedId($event: any): any {
 
+  }
+
+  getAllBids(): any {
+    this.backendService.viewAllBids()
+      .toPromise().then((data: Bids[]) => {
+      const thisDup = this;
+      data.map(bid => {
+        thisDup.bidList.push(bid);
+      });
+    });
   }
 
 }

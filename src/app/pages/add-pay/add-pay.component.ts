@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {NzUploadChangeParam, NzUploadFile, NzUploadModule} from 'ng-zorro-antd/upload';
-import getISOWeek from 'date-fns/getISOWeek';
-import { en_US, NzI18nService, zh_CN } from 'ng-zorro-antd/i18n';
+import {NzI18nService } from 'ng-zorro-antd/i18n';
 import {BackendService} from '../../services/backend.service';
 
 @Component({
@@ -23,10 +22,10 @@ export class AddPayComponent implements OnInit {
 
   fileList: NzUploadFile[] = [];
 
-  // invoce
+  // invoice
   title: string;
   description: string;
-  document: File = null;
+  document: File;
 
   // payment
   // tslint:disable-next-line:variable-name
@@ -38,35 +37,7 @@ export class AddPayComponent implements OnInit {
   payed_on: string;
   remark: string;
   invoice: any;
-  uploadUrl = 'http://localhost:3001/uploads//' + document;
-
-  // addInvoice(): any {
-  //   const title = this.formData().title;
-  //   const description = this.formData().description;
-  //   const document = this.formData().document;
-  //
-  //   this.backendService.addInvoice(title, description, document)
-  //     .subscribe(data => {
-  //       this.payData = data;
-  //       console.log(data);
-  //     });
-  // }
-  // addPayment(): any {
-  //     const payee = this.formData().document;
-  //   // tslint:disable-next-line:variable-name
-  //     const payment_date = this.formData().document;
-  //     const payer = this.formData().document;
-  //   // tslint:disable-next-line:variable-name
-  //     const payed_on = this.formData().document;
-  //     const remark = this.formData().document;
-  //     const invoice = this.formData().document;
-  //
-  //     this.backendService.addPayment(payee, payment_date, payer, payed_on, remark, invoice)
-  //     .subscribe(data => {
-  //       this.payData = data;
-  //       console.log(data);
-  //     });
-  // }
+  uploadUrl = 'http://localhost:3001/invoice/add';
 
   ngOnInit(): void {
     this.validateForm = this.fb.group({
@@ -93,51 +64,15 @@ export class AddPayComponent implements OnInit {
     }
   }
 
-
   handleChange(info: NzUploadChangeParam): void {
-    let fileList = [...info.fileList];
-
-    // 1. Limit the number of uploaded files
-    // Only to show two recent uploaded files, and old ones will be replaced by the new
-    fileList = fileList.slice(-2);
-
-    // 2. Read from response and show file link
-    fileList = fileList.map(file => {
-      if (file.response) {
-        // Component will show file.url as link
-        file.url = file.response.url;
-      }
-      return file;
-    });
-
-    this.fileList = fileList;
-  }
-  // uploadImage(info: { file: NzUploadFile }): void {
-  //   switch (info.file.status) {
-  //     case 'uploading':
-  //       this.loading = true;
-  //       break;
-  //     case 'done':
-  //       // Get this url from response in real world.
-  //       // tslint:disable-next-line:no-non-null-assertion
-  //       this.getBase64(info.file!.originFileObj!, (img: string) => {
-  //         this.loading = false;
-  //       });
-  //       this.document = info.file.originFileObj;
-  //
-  //       break;
-  //     case 'error':
-  //       // this.msg.error('Network error');
-  //       this.loading = false;
-  //       break;
-  //   }
-  // }
-
-  private getBase64(img: File, callback: (img: string) => void): void {
-    const reader = new FileReader();
-    // tslint:disable-next-line:no-non-null-assertion
-    reader.addEventListener('load', () => callback(reader.result!.toString()));
-    reader.readAsDataURL(img);
+    if (info.file.status !== 'uploading') {
+      console.log(info.file, info.fileList);
+    }
+    if (info.file.status === 'done') {
+      console.log(`${info.file.name} file uploaded successfully`);
+    } else if (info.file.status === 'error') {
+      console.log(`${info.file.name} file upload failed.`);
+    }
   }
 
   // Date picker handler
@@ -149,11 +84,18 @@ export class AddPayComponent implements OnInit {
     return this.validateForm.value;
   }
 
-  addPayment(): any {
-      const title = this.formData().title;
-      const description = this.formData().description;
-      const document = this.formData().document;
+  addInvoice(): any {
+    const title = this.formData().title;
+    const description = this.formData().description;
+    const document = this.formData().document;
 
+    this.backendService.addInvoice(title, description, document)
+      .subscribe(data => {
+        this.payData = data;
+        console.log(data);
+      });
+  }
+  addPayment(): any {
       const payee = this.formData().payee;
     // tslint:disable-next-line:variable-name
       const payment_date = this.formData().payment_date;
@@ -163,20 +105,11 @@ export class AddPayComponent implements OnInit {
       const remark = this.formData().remark;
       const invoice = this.formData().invoice;
 
-      this.backendService.addInvoice(title, description, document)
-        .subscribe(data => {
-          this.payData = data;
-          console.log(data);
-        });
-
-      //
-      // this.backendService.addPayment(payee, payment_date.toLocaleString(), payer, payed_on.toLocaleString(), remark, invoice)
-      //   .subscribe(data => {
-      //     this.payData = data;
-      //     console.log(data);
-      //   });
-
+      this.backendService.addPayment(payee, payment_date, payer, payed_on, remark, invoice)
+      .subscribe(data => {
+        this.payData = data;
+        console.log(data);
+      });
   }
-
 
 }

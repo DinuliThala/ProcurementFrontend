@@ -11,6 +11,7 @@ import {ProjectComponent} from './pages/project/project.component';
 import {SupplierComponent} from './pages/supplier/supplier.component';
 import {HomeComponent} from './pages/home/home.component';
 import {CreatePurchaseOrderComponent} from './pages/create-purchase-order/create-purchase-order.component';
+import {ViewSupplierComponent} from './pages/view-supplier/view-supplier.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -24,7 +25,8 @@ const routes: Routes = [
       {path: 'view-req', component: ViewReqComponent},
       {path: 'add-bids', component: AddBidsComponent},
       {path: 'project', component: ProjectComponent},
-      {path: 'create-order', component: CreatePurchaseOrderComponent}
+      {path: 'create-order', component: CreatePurchaseOrderComponent},
+      {path: 'view-supplier', component: ViewSupplierComponent}
     ],
   },
   {path: 'supplier', component: SupplierComponent},

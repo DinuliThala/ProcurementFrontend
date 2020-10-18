@@ -3,6 +3,7 @@ import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import {catchError} from 'rxjs/operators';
 import {BehaviorSubject, Observable, throwError} from 'rxjs';
 import {Requisiton} from '../models/Requisiton';
+import {Supplier} from '../models/Supplier';
 
 @Injectable({
   providedIn: 'root'
@@ -35,14 +36,14 @@ export class BackendService {
 
   }
 
-  viewAllSuppliers(): Observable<Requisiton[]> {
+  viewAllSuppliers(): Observable<Supplier[]> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json'
     });
 
     // API Call
     return this.http
-      .get<Requisiton[]>(this.uri + `/supplier/getall`, {
+      .get<Supplier[]>(this.uri + `/supplier/getall`, {
         headers
       })
       .pipe(catchError(this.errorHandler));
