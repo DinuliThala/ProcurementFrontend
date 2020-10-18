@@ -1,8 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {NzUploadChangeParam, NzUploadFile} from 'ng-zorro-antd/upload';
-import {en_US, NzI18nService, zh_CN} from 'ng-zorro-antd/i18n';
-import getISOWeek from 'date-fns/getISOWeek';
+import {Component, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {NzI18nService} from 'ng-zorro-antd/i18n';
 import {BackendService} from '../../services/backend.service';
 import {Requisiton} from '../../models/Requisiton';
 import {Supplier} from '../../models/Supplier';

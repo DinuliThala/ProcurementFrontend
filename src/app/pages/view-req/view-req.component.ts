@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {BackendService} from '../../services/backend.service';
 import {Requisiton} from '../../models/Requisiton';
 

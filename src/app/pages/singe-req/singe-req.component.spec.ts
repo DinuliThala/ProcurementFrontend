@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { SingeReqComponent } from './singe-req.component';
+import {SingeReqComponent} from './singe-req.component';
 
 describe('SingeReqComponent', () => {
   let component: SingeReqComponent;

@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {BackendService} from '../../services/backend.service';
-import {Bids} from '../../models/Bids';
 import {Purchased} from '../../models/Purchased';
 
 @Component({

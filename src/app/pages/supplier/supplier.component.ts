@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Bids} from '../../models/Bids';
 import {BackendService} from '../../services/backend.service';
 import {Router} from '@angular/router';

@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {NzUploadChangeParam, NzUploadFile, NzUploadModule} from 'ng-zorro-antd/upload';
-import {NzI18nService } from 'ng-zorro-antd/i18n';
+import {NzUploadChangeParam, NzUploadFile} from 'ng-zorro-antd/upload';
+import {NzI18nService} from 'ng-zorro-antd/i18n';
 import {BackendService} from '../../services/backend.service';
 
 @Component({

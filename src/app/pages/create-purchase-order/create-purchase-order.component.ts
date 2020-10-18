@@ -1,8 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import {NzButtonSize} from 'ng-zorro-antd/button';
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {BackendService} from '../../services/backend.service';
-import {Requisiton} from '../../models/Requisiton';
 import {Bids} from '../../models/Bids';
 
 @Component({

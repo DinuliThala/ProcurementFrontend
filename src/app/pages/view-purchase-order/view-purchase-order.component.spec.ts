@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { ViewPurchaseOrderComponent } from './view-purchase-order.component';
+import {ViewPurchaseOrderComponent} from './view-purchase-order.component';
 
 describe('ViewPurchaseOrderComponent', () => {
   let component: ViewPurchaseOrderComponent;

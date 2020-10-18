@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import {Requisiton} from '../../models/Requisiton';
+import {Component, OnInit} from '@angular/core';
 import {BackendService} from '../../services/backend.service';
 import {Site} from '../../models/Site';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
